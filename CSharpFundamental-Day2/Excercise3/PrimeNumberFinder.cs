@@ -74,7 +74,7 @@ namespace Excercise3
             return primes;
         }
 
-        public static async Task Main(string[] args)
+        public static async Task Implement()
         {
             int start, end;
             bool validInput = false;
@@ -119,11 +119,15 @@ namespace Excercise3
             stopWatch3.Stop();
             if (primes.Count != 0)
             {
-                Console.WriteLine("Time to complete with asynchrnous: {0}", stopWatch1.ElapsedMilliseconds);
+                Console.WriteLine("Time to complete with asynchronous: {0}", stopWatch1.ElapsedMilliseconds);
                 Console.WriteLine("Number of elements found: {0}", primesAsync.Count);
-                Console.WriteLine("Time to complete with asynchrnous: {0}", stopWatch3.ElapsedMilliseconds);
+                Console.WriteLine("Time to complete without asynchronous: {0}", stopWatch3.ElapsedMilliseconds);
                 Console.WriteLine("Number of elements found: {0}", primes.Count);
             }
+        }
+        public static async Task Main(string[] args)
+        {
+            await Implement();
 
         }
     }

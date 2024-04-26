@@ -14,7 +14,7 @@ namespace Excercise2
         /// <summary>
         /// Use to display menu
         /// </summary>
-        public async Task DisplayMenu()
+        public void DisplayMenu()
         {
             int choice;
             string input = "";
@@ -72,6 +72,7 @@ namespace Excercise2
                     case 5:
                         var in2000 = _memberManager.Member2000(_listMember);
                         Console.WriteLine("\n\t--Members by year--");
+                        Console.WriteLine("\n\t--4.Members in 2000--");
                         _memberManager.DisplayMembersInTable(in2000);
                         var before2000 = _memberManager.YoungMembers(_listMember);
                         Console.WriteLine("\n\t--4.Members after 2000--");
