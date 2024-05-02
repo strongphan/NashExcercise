@@ -1,0 +1,4 @@
+Schema: https, Host: localhost:7110, Path: /api/Logs/login, QueryString: ?id=3, RequestBody: {
+  "name": "string",
+  "password": "string"
+}
