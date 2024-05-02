@@ -19,14 +19,19 @@ namespace Asp.net_Core_Fundamentals
             var path = context.Request.Path;
             var queryString = context.Request.QueryString.ToString();
             var requestBody = await ReadRequestBodyAsync(context.Request);
+
             // Log the information 
-            /*            Log.Information("Schema: {schema}, Host: {host}, Path: {path}, QueryString: {queryString}", schema, host, path, queryString);
-            */
             LogToFile($"Schema: {schema}, Host: {host}, Path: {path}, QueryString: {queryString}, RequestBody: {requestBody}");
+
             // Call the next middleware in the pipeline
             await _next(context);
         }
 
+        /// <summary>
+        /// Use to get request body
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         private async Task<string> ReadRequestBodyAsync(HttpRequest request)
         {
             request.EnableBuffering();
@@ -36,6 +41,10 @@ namespace Asp.net_Core_Fundamentals
             return body;
         }
 
+        /// <summary>
+        /// Use to write log to file
+        /// </summary>
+        /// <param name="logMessage"></param>
         private void LogToFile(string logMessage)
         {
             string logFileName = $"Log_{DateTime.Now:yyyyMMdd}.txt";
