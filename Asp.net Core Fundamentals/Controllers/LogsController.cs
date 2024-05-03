@@ -7,6 +7,11 @@ namespace Asp.net_Core_Fundamentals.Controllers
     [ApiController]
     public class LogsController : ControllerBase
     {
+        /// <summary>
+        /// Simple api to test log
+        /// </summary>
+        /// <param name="id">example query string</param>
+        /// <param name="dto">example body</param>
         [HttpPost("login")]
         public void PostAnything(int id, [FromBody] LoginRequestDto dto)
         {
