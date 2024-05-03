@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Serilog;
+using System.Text;
 
 namespace Asp.net_Core_Fundamentals
 {
@@ -19,8 +20,9 @@ namespace Asp.net_Core_Fundamentals
             var path = context.Request.Path;
             var queryString = context.Request.QueryString.ToString();
             var requestBody = await ReadRequestBodyAsync(context.Request);
-
-            // Log the information 
+            // Log the information using Serilog
+            Log.Information($"Schema: {schema}, Host: {host}, Path: {path}, QueryString: {queryString}, RequestBody: {requestBody}");
+            // Log the information by manual
             LogToFile($"Schema: {schema}, Host: {host}, Path: {path}, QueryString: {queryString}, RequestBody: {requestBody}");
 
             // Call the next middleware in the pipeline
@@ -35,10 +37,12 @@ namespace Asp.net_Core_Fundamentals
         private async Task<string> ReadRequestBodyAsync(HttpRequest request)
         {
             request.EnableBuffering();
-            using var reader = new StreamReader(request.Body, encoding: Encoding.UTF8, detectEncodingFromByteOrderMarks: false, leaveOpen: true);
-            var body = await reader.ReadToEndAsync();
-            request.Body.Position = 0;
-            return body;
+            using (var reader = new StreamReader(request.Body, encoding: Encoding.UTF8, detectEncodingFromByteOrderMarks: false, leaveOpen: true))
+            {
+                var body = await reader.ReadToEndAsync();
+                request.Body.Position = 0;
+                return body;
+            }
         }
 
         /// <summary>

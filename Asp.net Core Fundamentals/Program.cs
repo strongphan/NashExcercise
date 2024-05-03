@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.File(new CompactJsonFormatter(), "log_.txt", rollingInterval: RollingInterval.Day)
+    .WriteTo.File(new CompactJsonFormatter(), "log_Day_.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
 
