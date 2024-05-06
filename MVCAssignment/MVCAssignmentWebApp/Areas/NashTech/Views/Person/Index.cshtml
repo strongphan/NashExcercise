@@ -1,0 +1,31 @@
+﻿@model IEnumerable<MVCAssignment.Model.Person>
+@{
+    ViewData["Title"] = "List Person";
+}
+<style>
+    th, td {
+        border: 1px solid black;
+        padding: 15px;
+    }
+</style>
+<table border="1" >
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>DOB</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var person in Model)
+        {
+            <tr>
+                <td>@person.Id</td>
+                <td>@person.FirstName @person.LastName</td>
+                <td>@person.Gender</td>
+                <td>@person.DOB.ToString("dd-MM-yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>

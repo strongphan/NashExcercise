@@ -34,3 +34,19 @@ Schema: https, Host: localhost:7110, Path: /api/Logs/login, QueryString: ?id=675
   "name": "string",
   "password": "string"
 }
+Schema: https, Host: localhost:7110, Path: /api/Logs/login, QueryString: ?id=232, RequestBody: {
+  "name": "string",
+  "password": "string"
+}
+Schema: https, Host: localhost:7110, Path: /api/Logs/login, QueryString: ?id=97889, RequestBody: {
+  "name": "string",
+  "password": "string"
+}
+Schema: https, Host: localhost:7110, Path: /api/Logs/login, QueryString: ?id=23, RequestBody: {
+  "name": "string",
+  "password": "string"
+}
+Schema: https, Host: localhost:7110, Path: /api/Logs/login, QueryString: ?id=65656, RequestBody: {
+  "name": "string",
+  "password": "string"
+}

@@ -8,7 +8,7 @@ namespace Asp.net_Core_Fundamentals.Controllers
     public class LogsController : ControllerBase
     {
         /// <summary>
-        /// Simple api to test log
+        /// Simple api to test log 
         /// </summary>
         /// <param name="id">example query string</param>
         /// <param name="dto">example body</param>
