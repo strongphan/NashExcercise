@@ -24,6 +24,7 @@ namespace MVC_.NET_Core_Assignment_1.Areas.NashTech.Controllers
 
             return View(model);
         }
+
         public IActionResult GetMales()
         {
             var filter = new FilterPersonDto()
@@ -60,16 +61,19 @@ namespace MVC_.NET_Core_Assignment_1.Areas.NashTech.Controllers
             var model = _businessLogic.GetPeople(filter);
             return View("Index", model);
         }
+
         public IActionResult GetOldest()
         {
             var person = _businessLogic.GetOldestPerson();
             return View(person);
         }
+
         public IActionResult GetFullName()
         {
             var fullName = _businessLogic.GetFulName();
-            return View("Index", fullName);
+            return View("FullNameDisplay", fullName);
         }
+
         public IActionResult ExportExcel()
         {
             var model = _businessLogic.GetPeople(new FilterPersonDto());
