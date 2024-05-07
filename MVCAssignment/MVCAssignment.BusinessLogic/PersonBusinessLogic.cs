@@ -16,6 +16,7 @@ namespace MVCAssignment.BusinessLogic
         {
             try
             {
+                person.Id = Guid.NewGuid();
                 return _repository.AddPerson(person);
             }
             catch (Exception ex)
@@ -75,6 +76,19 @@ namespace MVCAssignment.BusinessLogic
             try
             {
                 return _repository.GetFulName();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Have some fun :))) " + ex.Message);
+            }
+        }
+
+        public Person GetPersonById(Guid personId)
+        {
+            try
+            {
+                var person = _repository.GetPersonById(personId);
+                return person;
             }
             catch (Exception ex)
             {

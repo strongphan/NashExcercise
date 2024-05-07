@@ -2,7 +2,7 @@
 
 namespace MVCAssignment.WebApp.NormalSevice
 {
-    public class ExcelService
+    public class ExcelService : IExcelService
     {
         public byte[] ExportToExcel<T>(IEnumerable<T> dataCollection, string sheetName = "People")
         {

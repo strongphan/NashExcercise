@@ -1,7 +1,7 @@
 ﻿@model MVCAssignment.Model.Person
 
 @{
-    ViewData["Title"] = "GetOldest";
+    ViewData["Title"] = "Detail";
 }
 
 <h1>GetOldest</h1>
@@ -10,12 +10,6 @@
     <h4>Person</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
@@ -61,6 +55,7 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.Id }) |
+    @Html.ActionLink("Delete", "Delete", new { Id = Model.Id }, new { onclick = $"return confirm('Are you sure you want to delete {Model.FirstName}?');" })|
     <a asp-action="Index">Back to List</a>
 </div>

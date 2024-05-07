@@ -9,6 +9,7 @@ namespace MVCAssignment.BusinessLogic
         public bool UpdatePerson(Person person);
         public bool DeletePerson(Guid personId);
         public List<Person> GetPeople(FilterPersonDto filterPersonDTO);
+        public Person GetPersonById(Guid personId);
         public Person GetOldestPerson();
         public List<string> GetFulName();
     }

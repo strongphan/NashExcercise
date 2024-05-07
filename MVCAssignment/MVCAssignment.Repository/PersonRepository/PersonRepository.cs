@@ -6,7 +6,20 @@ namespace MVCAssignment.Repository.PersonRepository
 {
     public class PersonRepository : IPersonRepository
     {
-        public List<Person> _people { get; set; }
+
+        public static readonly List<Person> _people = new List<Person>()
+            {
+
+                new ("Manh", "Phan", Gender.Male, new DateOnly(2002, 02, 22), "0975169602", "Ha Noi", false),
+                new ("Duc", "Hoang", Gender.Male, new DateOnly(1996, 01, 11), "0978989900", "Ha Tay", true),
+                new ("Hai", "Luong", Gender.Male, new DateOnly(2001, 06, 21), "2958206928", "Ninh Binh", true),
+                new ("Ha", "Phan", Gender.Female, new DateOnly(1995, 05, 12), "0996781234", "Bac Giang", true),
+                new ("Dat", "Tuan", Gender.Male, new DateOnly(2000, 08, 15), "0988933314", "Bac Ninh", false),
+                new ("Hieu", "Nguyen", Gender.Male, new DateOnly(2002, 03, 07), "0336372726", "Ha Noi", false),
+                new ("Duc", "Nguyen", Gender.Female, new DateOnly(2002, 02, 15), "03363763726", "Ha Noi", false),
+                new ("Hieu", "Pham", Gender.Male, new DateOnly(2002, 03, 16), "0336372126", "Ha Nam", false),
+                new ("Hoang", "Nguyen", Gender.Female, new DateOnly(2002, 01, 01), "0254372726", "Hai Phong", false),
+            };
 
         public Guid? AddPerson(Person person)
         {
@@ -19,7 +32,8 @@ namespace MVCAssignment.Repository.PersonRepository
             var another = _people.FirstOrDefault(p => p.Id == person.Id);
             if (another != null)
             {
-                another = person;
+                _people.Remove(another);
+                _people.Add(person);
                 return true;
             }
             return false;
@@ -38,62 +52,49 @@ namespace MVCAssignment.Repository.PersonRepository
 
         public List<Person> GetPeople(FilterPersonDto filter)
         {
-            var people = GenerateData();
-
+            var people = _people;
             if (filter.Gender.HasValue)
             {
-                people = people.Where(p => p.Gender == filter.Gender.Value).ToList();
+                people = _people.Where(p => p.Gender == filter.Gender.Value).ToList();
             }
             if (filter.Year.HasValue)
             {
-                people = people.Where(p => p.DOB.Year == filter.Year.Value).ToList();
+                people = _people.Where(p => p.DOB.Year == filter.Year.Value).ToList();
             }
             if (filter.BeforeYear.HasValue)
             {
-                people = people.Where(p => p.DOB.Year < filter.BeforeYear.Value).ToList();
+                people = _people.Where(p => p.DOB.Year < filter.BeforeYear.Value).ToList();
             }
             if (filter.AfterYear.HasValue)
             {
-                people = people.Where(p => p.DOB.Year > filter.AfterYear.Value).ToList();
+                people = _people.Where(p => p.DOB.Year > filter.AfterYear.Value).ToList();
             }
             if (filter.IsGraduated.HasValue)
             {
-                people = people.Where(p => p.IsGraduated == filter.IsGraduated.Value).ToList();
+                people = _people.Where(p => p.IsGraduated == filter.IsGraduated.Value).ToList();
             }
 
             return people;
         }
-        public List<Person> GenerateData()
-        {
-            var people = new List<Person>();
-            for (int i = 0; i < 20; i++)
-            {
-                people.Add(new Person
-                {
-                    Id = Guid.NewGuid(),
-                    FirstName = $"First Name {i + 1}",
-                    LastName = $"Last Name {i + 1}",
-                    Gender = (i % 2 == 0) ? Gender.Male : Gender.Female,
-                    DOB = DateTime.Now.AddYears(-(20 + i)), // Random DOBs within 20 years
-                    PhoneNumber = $"123-456-{i:0000}", // Formatted phone number
-                    BirthPlace = $"City {i + 1}, State",
-                    IsGraduated = (i % 3 == 0) // Set IsGraduated for some entries
-                });
-            }
-            return people;
-        }
+
+
+
 
         public Person GetOldestPerson()
         {
-            var people = GenerateData();
-            return people.OrderByDescending(p => p.DOB.Year).FirstOrDefault();
+            return _people.OrderBy(p => p.DOB.Year).FirstOrDefault();
         }
 
         public List<string> GetFulName()
         {
-            var people = GenerateData();
 
-            return people.Select(p => p.FirstName + " " + p.LastName).ToList();
+            return _people.Select(p => p.FirstName + " " + p.LastName).ToList();
+        }
+
+        public Person GetPersonById(Guid personId)
+        {
+            var person = _people.FirstOrDefault(p => p.Id == personId);
+            return person;
         }
     }
 }

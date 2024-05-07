@@ -11,5 +11,6 @@ namespace MVCAssignment.Repository.PersonRepository
         public List<Person> GetPeople(FilterPersonDto filterPersonDTO);
         public Person GetOldestPerson();
         public List<string> GetFulName();
+        public Person GetPersonById(Guid personId);
     }
 }

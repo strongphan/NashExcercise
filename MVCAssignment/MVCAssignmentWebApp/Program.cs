@@ -1,5 +1,6 @@
 using MVCAssignment.BusinessLogic;
 using MVCAssignment.Repository.PersonRepository;
+using MVCAssignment.WebApp.NormalSevice;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IPersonBusinessLogic, PersonBusinessLogic>();
 
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+
+builder.Services.AddScoped<IExcelService, ExcelService>();
 
 var app = builder.Build();
 
