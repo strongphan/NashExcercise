@@ -1,22 +1,21 @@
-﻿using MVCAssignment.Model;
+﻿using AutoMapper;
+using MVCAssignment.Model;
 using MVCAssignment.Repository.DTOs;
 using MVCAssignment.Repository.PersonRepository;
 
 namespace MVCAssignment.BusinessLogic
 {
-    public class PersonBusinessLogic : IPersonBusinessLogic
+    public class PersonBusinessLogic(IPersonRepository repository, IMapper mapper) : IPersonBusinessLogic
     {
-        private readonly IPersonRepository _repository;
+        private readonly IPersonRepository _repository = repository;
+        private readonly IMapper _mapper = mapper;
 
-        public PersonBusinessLogic(IPersonRepository repository)
-        {
-            _repository = repository;
-        }
-        public Guid? AddPerson(Person person)
+        public Guid? AddPerson(PersonDto dto)
         {
             try
             {
-                person.Id = Guid.NewGuid();
+                dto.Id = Guid.NewGuid();
+                var person = _mapper.Map<Person>(dto);
                 return _repository.AddPerson(person);
             }
             catch (Exception ex)
@@ -24,10 +23,12 @@ namespace MVCAssignment.BusinessLogic
                 throw new Exception("Have some fun :))) " + ex.Message);
             }
         }
-        public bool UpdatePerson(Person person)
+        public bool UpdatePerson(PersonDto dto)
         {
             try
             {
+                var person = _mapper.Map<Person>(dto);
+
                 return _repository.UpdatePerson(person);
             }
             catch (Exception ex)
@@ -47,11 +48,13 @@ namespace MVCAssignment.BusinessLogic
             }
         }
 
-        public List<Person> GetPeople(FilterPersonDto filterPersonDTO)
+        public List<PersonDto> GetPeople(FilterPersonDto filterPersonDTO)
         {
             try
             {
-                return _repository.GetPeople(filterPersonDTO);
+                var people = _repository.GetPeople(filterPersonDTO);
+                var lDto = _mapper.Map<List<PersonDto>>(people);
+                return lDto;
             }
             catch (Exception ex)
             {
@@ -59,11 +62,14 @@ namespace MVCAssignment.BusinessLogic
             }
         }
 
-        public Person GetOldestPerson()
+        public PersonDto GetOldestPerson()
         {
             try
             {
-                return _repository.GetOldestPerson();
+
+                var person = _repository.GetOldestPerson();
+                var dto = _mapper.Map<PersonDto>(person);
+                return dto;
             }
             catch (Exception ex)
             {
@@ -83,12 +89,14 @@ namespace MVCAssignment.BusinessLogic
             }
         }
 
-        public Person GetPersonById(Guid personId)
+        public PersonDto GetPersonById(Guid personId)
         {
             try
             {
                 var person = _repository.GetPersonById(personId);
-                return person;
+                var dto = _mapper.Map<PersonDto>(person);
+
+                return dto;
             }
             catch (Exception ex)
             {

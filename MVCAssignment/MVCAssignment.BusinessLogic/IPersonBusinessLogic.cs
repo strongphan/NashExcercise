@@ -1,16 +1,15 @@
-﻿using MVCAssignment.Model;
-using MVCAssignment.Repository.DTOs;
+﻿using MVCAssignment.Repository.DTOs;
 
 namespace MVCAssignment.BusinessLogic
 {
     public interface IPersonBusinessLogic
     {
-        public Guid? AddPerson(Person person);
-        public bool UpdatePerson(Person person);
+        public Guid? AddPerson(PersonDto person);
+        public bool UpdatePerson(PersonDto person);
         public bool DeletePerson(Guid personId);
-        public List<Person> GetPeople(FilterPersonDto filterPersonDTO);
-        public Person GetPersonById(Guid personId);
-        public Person GetOldestPerson();
+        public List<PersonDto> GetPeople(FilterPersonDto filterPersonDTO);
+        public PersonDto GetPersonById(Guid personId);
+        public PersonDto GetOldestPerson();
         public List<string> GetFulName();
     }
 }

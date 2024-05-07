@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVCAssignment.BusinessLogic;
-using MVCAssignment.Model;
 using MVCAssignment.Model.Enum;
 using MVCAssignment.Repository.DTOs;
 using MVCAssignment.WebApp.Controllers;
@@ -46,7 +45,7 @@ namespace MVC_.NET_Core_Assignment_1.Areas.NashTech.Controllers
         {
             try
             {
-                var person = new Person();
+                var person = new PersonDto();
                 person.FirstName = f["FirstName"];
                 person.LastName = f["LastName"];
                 person.DOB = DateOnly.Parse(f["DOB"]);
@@ -77,7 +76,7 @@ namespace MVC_.NET_Core_Assignment_1.Areas.NashTech.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(IFormCollection f, Person person)
+        public IActionResult Edit(IFormCollection f, PersonDto person)
         {
             try
             {
@@ -157,9 +156,6 @@ namespace MVC_.NET_Core_Assignment_1.Areas.NashTech.Controllers
             return View("Index", model);
         }
 
-        [HttpGet]
-        [Area("NashTech")]
-        [Route("AS")]
         public IActionResult GetOldest()
         {
             var person = _businessLogic.GetOldestPerson();
