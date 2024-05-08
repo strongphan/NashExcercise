@@ -8,7 +8,7 @@ namespace ManhPT_APIAssignment.API.Controllers
 {
     [Route("api/todo")]
     [ApiController]
-    public class TasksController(IToDoService service, IMapper mapper) : ControllerBase
+    public class ToDosController(IToDoService service, IMapper mapper) : ControllerBase
     {
         private readonly IToDoService _service = service;
         private readonly IMapper _mapper = mapper;
@@ -20,14 +20,15 @@ namespace ManhPT_APIAssignment.API.Controllers
             var dtos = _mapper.Map<List<ToDoDto>>(toDoList);
             return dtos;
         }
-        [HttpGet("{Id}")]
-        public async Task<IActionResult> GetByIdAsync(Guid Id)
+
+        [HttpGet("{id}")]
+        [ActionName(nameof(GetByIdAsync))]
+        public async Task<IActionResult> GetByIdAsync(Guid id)
         {
-            var toDo = await _service.GetToDoByIdAsync(Id);
+            var toDo = await _service.GetToDoByIdAsync(id);
             if (toDo == null)
             {
                 return StatusCode(404, "Not Found");
-
             }
             else
             {
@@ -35,6 +36,7 @@ namespace ManhPT_APIAssignment.API.Controllers
                 return Ok(dto);
             }
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] ToDoCreateDto dto)
         {
@@ -43,18 +45,19 @@ namespace ManhPT_APIAssignment.API.Controllers
             var result = await _service.CreateToDoAsync(toDo);
             if (result)
             {
-                return CreatedAtAction(nameof(CreateAsync), new { id = toDo.Id });
+                return CreatedAtAction(nameof(GetByIdAsync), new { id = toDo.Id }, toDo);
             }
             else
             {
                 return StatusCode(500, "An error occurred while create task.");
             }
         }
-        [HttpPut("{Id}")]
-        public async Task<IActionResult> UpdateAsync(Guid Id, [FromBody] ToDoCreateDto dto)
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] ToDoCreateDto dto)
         {
             var toDo = _mapper.Map<ToDo>(dto);
-            toDo.Id = Id;
+            toDo.Id = id;
             var result = await _service.UpdateToDoAsync(toDo);
             if (result)
             {
@@ -65,7 +68,8 @@ namespace ManhPT_APIAssignment.API.Controllers
                 return StatusCode(500, "An error occurred while update task.");
             }
         }
-        [HttpDelete("{Id}")]
+
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(Guid Id)
         {
             var result = await _service.DeleteToDoAsync(Id);
@@ -78,6 +82,7 @@ namespace ManhPT_APIAssignment.API.Controllers
                 return StatusCode(500, "An error occurred while delete task.");
             }
         }
+
         [HttpPost("bulk")]
         public async Task<IActionResult> CreateBulkAsync([FromBody] List<ToDoCreateDto> dtos)
         {
@@ -102,6 +107,7 @@ namespace ManhPT_APIAssignment.API.Controllers
                 return StatusCode(500, "An error occurred while inserting tasks.");
             }
         }
+
         [HttpDelete("bulk")]
         public async Task<IActionResult> DeleteBulkAsync([FromBody] List<Guid> ids)
         {
