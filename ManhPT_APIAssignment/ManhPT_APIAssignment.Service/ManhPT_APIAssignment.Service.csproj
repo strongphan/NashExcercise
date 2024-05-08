@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\APIAssignment.Repository\APIAssignment.Repository.csproj" />
+    <ProjectReference Include="..\ManhPT_APIAssignment.Repository\ManhPT_APIAssignment.Repository.csproj" />
   </ItemGroup>
 
 </Project>

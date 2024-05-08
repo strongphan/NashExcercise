@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MVCAssignment.BusinessLogic\MVCAssignment.BusinessLogic.csproj" />
+    <ProjectReference Include="..\MVCAssignment.BusinessLogic\MVCAssignment.Service.csproj" />
   </ItemGroup>
 
 </Project>

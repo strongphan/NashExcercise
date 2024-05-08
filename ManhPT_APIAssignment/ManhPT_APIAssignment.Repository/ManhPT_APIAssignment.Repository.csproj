@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\APIAssignment.Model\APIAssignment.Model.csproj" />
+    <ProjectReference Include="..\ManhPT_APIAssignment.Model\ManhPT_APIAssignment.Model.csproj" />
   </ItemGroup>
 
 </Project>

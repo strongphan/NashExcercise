@@ -1,7 +1,6 @@
-﻿namespace APIAssignment.Model
+﻿namespace ManhPT_APIAssignment.API.Dtos
 {
-
-    public class Excercise
+    public class ToDoDto
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
