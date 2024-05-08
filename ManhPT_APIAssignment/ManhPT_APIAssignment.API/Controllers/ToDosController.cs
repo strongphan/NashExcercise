@@ -14,6 +14,7 @@ namespace ManhPT_APIAssignment.API.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet]
+        [ActionName(nameof(GetAllAsync))]
         public async Task<IEnumerable<ToDoDto>> GetAllAsync()
         {
             var toDoList = await _service.GetListToDoAsync();
@@ -94,13 +95,13 @@ namespace ManhPT_APIAssignment.API.Controllers
             var toDos = _mapper.Map<List<ToDo>>(dtos);
             foreach (var toDo in toDos)
             {
-                toDo.Id = Guid.NewGuid(); // Ensure each task has a unique ID
+                toDo.Id = Guid.NewGuid();
             }
 
             var result = await _service.CreateToDoBulkAsync(toDos);
             if (result)
             {
-                return Ok("Bulk insert successful.");
+                return CreatedAtAction(nameof(GetAllAsync), new { }, toDos);
             }
             else
             {
