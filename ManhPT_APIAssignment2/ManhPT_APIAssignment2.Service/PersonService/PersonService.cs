@@ -5,29 +5,29 @@ using ManhPT_APIAssignment2.Service.ValidatorService;
 
 namespace ManhPT_APIAssignment2.Service.PersonService
 {
-    public class PersonService(IPersonRepository repository, IPersonValidatorService validatorService) : IPersonService
-
+    public class PersonService(
+        IPersonRepository repository,
+        IPersonValidatorService validatorService) : IPersonService
     {
         private readonly IPersonRepository _repository = repository;
         private readonly IPersonValidatorService _validatorService = validatorService;
 
-        public async Task<bool> AddPersonAsync(Person person)
+        public async Task<GeneralResponse> AddPersonAsync(Person person)
         {
-            var validator = new PersonValidatorService();
-            var validationResult = validator.Validate(person);
-            var ValidationErrors = new Dictionary<string, string>();
+            var response = new GeneralResponse();
+
+            var validationResult = _validatorService.Validate(person);
             if (!validationResult.IsValid)
             {
-                // Handle validation errors
-                var errors = validationResult.Errors;
-                foreach (var error in errors)
-                {
-                    ValidationErrors.Add(error.PropertyName, error.ErrorMessage);
-                }
-                var s = string.Join(", ", ValidationErrors.Select(e => $"{e.Key}: {e.Value}"));
-                return false;
+                response.ValidationResult = validationResult;
+                return response;
             }
-            return await _repository.AddPersonAsync(person);
+
+            person.Id = Guid.NewGuid();
+            await _repository.AddPersonAsync(person);
+
+            response.Success = true;
+            return response;
         }
 
         public async Task<bool> DeletePersonAsync(Guid personId)
@@ -47,9 +47,22 @@ namespace ManhPT_APIAssignment2.Service.PersonService
             return person;
         }
 
-        public async Task<bool> UpdatePersonAsync(Person person)
+        public async Task<GeneralResponse> UpdatePersonAsync(Person person)
         {
-            return await _repository.UpdatePersonAsync(person);
+            var response = new GeneralResponse();
+
+            var validationResult = _validatorService.Validate(person);
+            if (!validationResult.IsValid)
+            {
+                response.ValidationResult = validationResult;
+                return response;
+            }
+
+            person.Id = Guid.NewGuid();
+            await _repository.UpdatePersonAsync(person);
+
+            response.Success = true;
+            return response;
         }
     }
 }

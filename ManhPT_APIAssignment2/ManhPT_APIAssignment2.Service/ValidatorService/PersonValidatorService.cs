@@ -1,37 +1,23 @@
-﻿using FluentValidation;
-using ManhPT_APIAssignment2.Model;
+﻿using ManhPT_APIAssignment2.Model;
 
 namespace ManhPT_APIAssignment2.Service.ValidatorService
 {
-    public class PersonValidatorService : AbstractValidator<Person>, IPersonValidatorService
+    public class PersonValidatorService : IPersonValidatorService
     {
-        public Dictionary<string, string> ValidationErrors { get; private set; }
-
-        public PersonValidatorService()
+        public GeneralValidationResult Validate(Person person)
         {
-            ValidationErrors = new Dictionary<string, string>();
+            var modelValidationResult = new GeneralValidationResult();
 
-            RuleFor(person => person.FirstName)
-               .NotEmpty()
-               .WithMessage("Please  first name.")
-               .MaximumLength(20)
-               .WithMessage("Max length is 20.");
+            //Use Generic validation result in case need to display in message current value
+            //var modelValidationResult = new ModelValidationResult<Person> { Content = person };
 
-            RuleFor(person => person.LastName)
-                .NotEmpty()
-                .WithMessage("Please  last name.")
-                .MaximumLength(20)
-                .WithMessage("Max length is 20.");
+            var validator = new PersonValidator();
+            var validationResult = validator.Validate(person);
 
-            RuleFor(person => person.Gender)
-                .IsInEnum().WithMessage("Please choose a valid gender.");
+            modelValidationResult.IsValid = validationResult.IsValid;
+            modelValidationResult.Errors = validationResult.Errors.ToDictionary(x => x.PropertyName, x => x.ErrorMessage);
 
-            RuleFor(person => person.DOB)
-                .NotEmpty().WithMessage("Please choose date of birth.");
-
-            RuleFor(person => person.BirthPlace)
-                .NotEmpty().WithMessage("Please fill birth place.")
-                .MaximumLength(40).WithMessage("Max length is 40.");
+            return modelValidationResult;
         }
     }
 }

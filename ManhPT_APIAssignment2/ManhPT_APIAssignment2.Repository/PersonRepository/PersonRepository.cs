@@ -56,7 +56,7 @@ namespace ManhPT_APIAssignment2.Repository.PersonRepository
 
             if (!string.IsNullOrEmpty(filter.Name))
             {
-                people = people.Where(p => (p.FirstName + " " + p.LastName).Contains(filter.Name));
+                people = people.Where(p => (p.FirstName + " " + p.LastName).Contains(filter.Name, StringComparison.OrdinalIgnoreCase));
             }
             if (filter.Gender.HasValue && filter.Gender != 0)
             {

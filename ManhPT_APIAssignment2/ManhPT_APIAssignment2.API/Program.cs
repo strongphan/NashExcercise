@@ -15,9 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IPersonService, PersonService>();
-
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
-
 builder.Services.AddScoped<IPersonValidatorService, PersonValidatorService>();
 
 var app = builder.Build();

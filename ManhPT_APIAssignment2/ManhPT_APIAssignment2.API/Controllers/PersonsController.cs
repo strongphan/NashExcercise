@@ -4,6 +4,7 @@ using ManhPT_APIAssignment2.Model;
 using ManhPT_APIAssignment2.Repository;
 using ManhPT_APIAssignment2.Service.PersonService;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace ManhPT_APIAssignment2.API.Controllers
 {
@@ -35,7 +36,7 @@ namespace ManhPT_APIAssignment2.API.Controllers
             var person = await _service.GetPersonByIdAsync(id);
             if (person == null)
             {
-                throw new Exception($"Can't found person {id}");
+                return NotFound($"Can't found person {id}");
             }
             else
             {
@@ -48,15 +49,16 @@ namespace ManhPT_APIAssignment2.API.Controllers
         public async Task<IActionResult> CreateAsync(PersonCreateDto dto)
         {
             var person = _mapper.Map<Person>(dto);
-            person.Id = Guid.NewGuid();
+
             var result = await _service.AddPersonAsync(person);
-            if (result)
+
+            if (result.Success)
             {
                 return CreatedAtAction(nameof(GetByIdAsync), new { id = person.Id }, person);
             }
             else
             {
-                return StatusCode(500, "An error occurred while create task.");
+                return StatusCode((int)HttpStatusCode.BadRequest, result.ValidationResult.Message);
             }
         }
 
@@ -66,7 +68,7 @@ namespace ManhPT_APIAssignment2.API.Controllers
             var person = _mapper.Map<Person>(dto);
             person.Id = id;
             var result = await _service.UpdatePersonAsync(person);
-            if (result)
+            if (result.Success)
             {
                 return Ok("Update success");
             }
@@ -77,12 +79,12 @@ namespace ManhPT_APIAssignment2.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(Guid Id)
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            var result = await _service.DeletePersonAsync(Id);
+            var result = await _service.DeletePersonAsync(id);
             if (result)
             {
-                return Ok($"Delete success: {Id}");
+                return Ok($"Delete success: {id}");
             }
             else
             {
