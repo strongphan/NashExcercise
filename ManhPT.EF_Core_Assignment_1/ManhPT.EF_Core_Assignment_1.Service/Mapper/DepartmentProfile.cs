@@ -6,10 +6,12 @@ namespace ManhPT.EF_Core_Assignment_1.Service.Mapper
 {
     public class DepartmentProfile : Profile
     {
-        protected DepartmentProfile()
+        public DepartmentProfile()
         {
             CreateMap<Department, DepartmentDto>();
-            CreateMap<DepartmentCreateDto, Department>();
+            CreateMap<DepartmentDto, Department>();
+            CreateMap<DepartmentCreateDto, Department>()
+                .ForMember(m => m.Id, o => o.MapFrom(s => Guid.NewGuid()));
         }
     }
 }

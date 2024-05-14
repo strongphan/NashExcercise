@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ManhPT.EF_Core_Assignment_1.Model.Migrations
 {
     /// <inheritdoc />
-    public partial class Inital : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -107,10 +107,10 @@ namespace ManhPT.EF_Core_Assignment_1.Model.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("255ff132-ef6d-4577-ac58-ae9a8e89fb5a"), "HR" },
-                    { new Guid("541be00c-4922-4265-951f-c49c59370c7b"), "Accountant" },
-                    { new Guid("de1aa6b2-10ab-42cb-9507-942210f19974"), "Software Development" },
-                    { new Guid("f4c3a9be-476d-4937-85c6-1d618b9ef4fc"), "Finance" }
+                    { new Guid("2cc1b522-d72d-4013-af61-73f78bc9de1b"), "Software Development" },
+                    { new Guid("8569d83d-0999-49e5-98b4-f3723019d6b2"), "Finance" },
+                    { new Guid("981e1b01-7b84-4c5d-9b37-be57e0c8b62e"), "Accountant" },
+                    { new Guid("a1be0280-dd14-4aa8-b23d-03edfae885a2"), "HR" }
                 });
 
             migrationBuilder.CreateIndex(

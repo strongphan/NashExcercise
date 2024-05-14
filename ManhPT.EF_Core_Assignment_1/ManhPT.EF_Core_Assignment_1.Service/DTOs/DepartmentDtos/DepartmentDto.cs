@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ManhPT.EF_Core_Assignment_1.Model;
 
 namespace ManhPT.EF_Core_Assignment_1.Service.DTOs.DepartmentDtos
 {
-    internal class DepartmentDto
+    public class DepartmentDto
     {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public List<Employee> Employees { get; set; }
     }
 }

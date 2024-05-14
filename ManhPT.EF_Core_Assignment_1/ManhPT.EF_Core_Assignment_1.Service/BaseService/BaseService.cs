@@ -1,34 +1,43 @@
-﻿using ManhPT.EF_Core_Assignment_1.Repository.GenericRepository;
+﻿using AutoMapper;
+using ManhPT.EF_Core_Assignment_1.Repository.BaseRepository;
 
-namespace ManhPT.EF_Core_Assignment_1.Service.BaseService
+namespace ManhPT.EF_Core_Assignment_1.Service
 {
-    public class BaseService<TEntity, TEntityDto, TEntityCreateDto>(IBaseRepository<TEntity> repository) : IBaseService<TEntityDto, TEntityCreateDto> where TEntity : class
+    public abstract class BaseService<TEntity, TEntityDto, TEntityCreateDto>(IBaseRepository<TEntity> repository, IMapper mapper) : IBaseService<TEntityDto, TEntityCreateDto> where TEntity : class
     {
         private readonly IBaseRepository<TEntity> _repository = repository;
+        private readonly IMapper _mapper = mapper;
 
-        public void DeleteAsync(object Id)
+        public void DeleteAsync(Guid Id)
         {
             _repository.DeleteAsync(Id);
         }
 
         public async Task<IEnumerable<TEntityDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var entities = await _repository.GetAllAsync();
+            var dtos = _mapper.Map<IEnumerable<TEntityDto>>(entities);
+            return dtos;
         }
 
-        public Task<TEntityDto> GetByIdAsync(object Id)
+        public async Task<TEntityDto> GetByIdAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            var entity = await _repository.GetByIdAsync(Id);
+            var dto = _mapper.Map<TEntityDto>(entity);
+            return dto;
+
         }
 
-        public void InsertAsync(TEntityCreateDto entity)
+        public void InsertAsync(TEntityCreateDto entityDto)
         {
-            throw new NotImplementedException();
+            var entity = _mapper.Map<TEntity>(entityDto);
+            _repository.InsertAsync(entity);
         }
 
-        public void UpdateAsync(TEntityCreateDto entity)
+        public void UpdateAsync(Guid id, TEntityDto entityDto)
         {
-            throw new NotImplementedException();
+            var entity = _mapper.Map<TEntity>(entityDto);
+            _repository.UpdateAsync(entity);
         }
     }
 }

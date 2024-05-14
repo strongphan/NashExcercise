@@ -39,22 +39,22 @@ namespace ManhPT.EF_Core_Assignment_1.Model.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("de1aa6b2-10ab-42cb-9507-942210f19974"),
+                            Id = new Guid("2cc1b522-d72d-4013-af61-73f78bc9de1b"),
                             Name = "Software Development"
                         },
                         new
                         {
-                            Id = new Guid("f4c3a9be-476d-4937-85c6-1d618b9ef4fc"),
+                            Id = new Guid("8569d83d-0999-49e5-98b4-f3723019d6b2"),
                             Name = "Finance"
                         },
                         new
                         {
-                            Id = new Guid("541be00c-4922-4265-951f-c49c59370c7b"),
+                            Id = new Guid("981e1b01-7b84-4c5d-9b37-be57e0c8b62e"),
                             Name = "Accountant"
                         },
                         new
                         {
-                            Id = new Guid("255ff132-ef6d-4577-ac58-ae9a8e89fb5a"),
+                            Id = new Guid("a1be0280-dd14-4aa8-b23d-03edfae885a2"),
                             Name = "HR"
                         });
                 });
