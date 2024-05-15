@@ -4,8 +4,9 @@ namespace MVCAssignment.WebApp.NormalSevice
 {
     public class ExcelService : IExcelService
     {
-        public byte[] ExportToExcel<T>(IEnumerable<T> dataCollection, string sheetName = "People")
+        public byte[] ExportToExcel<T>(IEnumerable<T> dataCollection)
         {
+            string sheetName = "People";
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (var package = new ExcelPackage())
             {

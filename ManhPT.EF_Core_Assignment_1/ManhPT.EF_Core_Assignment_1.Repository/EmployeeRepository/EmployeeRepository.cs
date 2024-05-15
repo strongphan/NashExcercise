@@ -43,7 +43,7 @@ namespace ManhPT.EF_Core_Assignment_1.Repository
             try
             {
                 var filteredEmployees = await _dbContext.Employees
-                    .FromSqlRaw("SELECT e.* FROM Employees e INNER JOIN Salary s ON e.Id = s.EmployeeId WHERE s.Amount > 100 AND e.JoinedDate >= '2024-01-01';")
+                    .FromSqlRaw("SELECT e.Id, e.Name, e.DepartmentId,e.JoinedDate FROM Employees e INNER JOIN Salary s ON e.Id = s.EmployeeId WHERE s.Amount > 100 AND e.JoinedDate >= '2024-01-01';")
                     .ToListAsync();
 
 

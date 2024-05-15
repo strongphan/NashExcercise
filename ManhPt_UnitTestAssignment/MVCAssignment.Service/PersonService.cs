@@ -12,96 +12,62 @@ namespace MVCAssignment.Service
 
         public Guid? AddPerson(PersonDto dto)
         {
-            try
-            {
-                dto.Id = Guid.NewGuid();
-                var person = _mapper.Map<Person>(dto);
-                return _repository.AddPerson(person);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Have some fun :))) " + ex.Message);
-            }
+
+            dto.Id = Guid.NewGuid();
+            var person = _mapper.Map<Person>(dto);
+            return _repository.AddPerson(person);
+
+
         }
         public bool UpdatePerson(PersonDto dto)
         {
-            try
-            {
-                var person = _mapper.Map<Person>(dto);
 
-                return _repository.UpdatePerson(person);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Have some fun :))) " + ex.Message);
-            }
+            var person = _mapper.Map<Person>(dto);
+
+            return _repository.UpdatePerson(person);
+
         }
         public bool DeletePerson(Guid personId)
         {
-            try
-            {
-                return _repository.DeletePerson(personId);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Have some fun :))) " + ex.Message);
-            }
+
+            return _repository.DeletePerson(personId);
+
         }
 
         public List<PersonDto> GetPeople(FilterPersonDto filterPersonDTO)
         {
-            try
-            {
-                var people = _repository.GetPeople(filterPersonDTO);
-                var lDto = _mapper.Map<List<PersonDto>>(people);
-                return lDto;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Have some fun :))) " + ex.Message);
-            }
+
+            var people = _repository.GetPeople(filterPersonDTO);
+            var lDto = _mapper.Map<List<PersonDto>>(people);
+            return lDto;
+
         }
 
         public PersonDto GetOldestPerson()
         {
-            try
-            {
 
-                var person = _repository.GetOldestPerson();
-                var dto = _mapper.Map<PersonDto>(person);
-                return dto;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Have some fun :))) " + ex.Message);
-            }
+
+            var person = _repository.GetOldestPerson();
+            var dto = _mapper.Map<PersonDto>(person);
+            return dto;
+
         }
 
         public List<string> GetFulName()
         {
-            try
-            {
-                return _repository.GetFulName();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Have some fun :))) " + ex.Message);
-            }
+
+            return _repository.GetFulName();
+
         }
 
         public PersonDto GetPersonById(Guid personId)
         {
-            try
-            {
-                var person = _repository.GetPersonById(personId);
-                var dto = _mapper.Map<PersonDto>(person);
 
-                return dto;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Have some fun :))) " + ex.Message);
-            }
+            var person = _repository.GetPersonById(personId);
+            var dto = _mapper.Map<PersonDto>(person);
+
+            return dto;
+
         }
     }
 }

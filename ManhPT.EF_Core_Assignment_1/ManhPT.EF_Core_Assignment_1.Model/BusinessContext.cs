@@ -35,7 +35,6 @@ namespace ManhPT.EF_Core_Assignment_1.Model
                 .HasOne(pe => pe.Employee)
                 .WithMany(e => e.ProjectEmployees)
                 .HasForeignKey(pe => pe.EmployeeId);
-
             modelBuilder.Entity<Department>().HasData(
                 new Department { Id = Guid.NewGuid(), Name = "Software Development" },
                 new Department { Id = Guid.NewGuid(), Name = "Finance" },

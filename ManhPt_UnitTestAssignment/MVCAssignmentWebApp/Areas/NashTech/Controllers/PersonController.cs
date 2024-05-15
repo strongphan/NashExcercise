@@ -43,29 +43,13 @@ namespace MVC_.NET_Core_Assignment_1.Areas.NashTech.Controllers
         [HttpPost]
         public IActionResult Create(PersonDto dto)
         {
-            try
+
+            if (ModelState.IsValid)
             {
-                var person = dto;
-                /* person.FirstName = f["FirstName"];
-                 person.LastName = f["LastName"];
-                 person.DOB = DateOnly.Parse(f["DOB"]);
-                 person.PhoneNumber = f["PhoneNumber"];
-                 person.Gender = (Gender)Enum.Parse(typeof(Gender), f["Gender"]);
-                 person.BirthPlace = f["BirthPlace"];
-                 var isGraduatedValue = f["IsGraduated"].FirstOrDefault();*/
-                /*                person.IsGraduated = isGraduatedValue.Split(',').Any(v => v.Equals("true", StringComparison.OrdinalIgnoreCase));
-                */
-                if (ModelState.IsValid)
-                {
-                    _service.AddPerson(person);
-                }
-                return Redirect("Index");
+                _ = _service.AddPerson(dto);
+                return RedirectToAction("Index");
             }
-            catch (Exception ex)
-            {
-                ViewBag.Error = "Invalid Input! " + ex.Message;
-                return View();
-            }
+            return View();
         }
         public IActionResult Edit(Guid Id)
         {
@@ -78,48 +62,30 @@ namespace MVC_.NET_Core_Assignment_1.Areas.NashTech.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(IFormCollection f, PersonDto person)
+        public IActionResult Edit(PersonDto person)
         {
-            try
+
+            if (ModelState.IsValid)
             {
-                person.FirstName = f["FirstName"];
-                person.LastName = f["LastName"];
-                person.DOB = DateOnly.Parse(f["DOB"]);
-                person.PhoneNumber = f["PhoneNumber"];
-                person.Gender = (Gender)Enum.Parse(typeof(Gender), f["Gender"]);
-                person.BirthPlace = f["BirthPlace"];
-
-                var isGraduatedValue = f["IsGraduated"].FirstOrDefault();
-                person.IsGraduated = isGraduatedValue.Split(',').Any(v => v.Equals("true", StringComparison.OrdinalIgnoreCase));
-
                 var result = _service.UpdatePerson(person);
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
-            {
-                ViewBag.Error = "Error updating person: " + ex.Message;
-                return View("Edit", person);
-            }
+            return View("Edit", person);
+
+
         }
         public IActionResult Delete(Guid Id)
         {
-            try
-            {
-                var person = _service.GetPersonById(Id);
-                if (person == null)
-                {
-                    return NotFound();
-                }
 
-                _service.DeletePerson(Id);
-                return View("DeleteComplete", person.FirstName);
-            }
-            catch (Exception ex)
+            var person = _service.GetPersonById(Id);
+            if (person == null)
             {
-                // Log the exception and handle errors
-                ViewBag.Error = "Error deleting person: " + ex.Message;
-                return View("Index");
+                return NotFound();
             }
+
+            _service.DeletePerson(Id);
+            return View("DeleteComplete", person.FirstName);
+
         }
         public IActionResult GetMales()
         {
