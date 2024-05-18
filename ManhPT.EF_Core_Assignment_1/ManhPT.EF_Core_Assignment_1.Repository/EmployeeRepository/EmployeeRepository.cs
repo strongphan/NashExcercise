@@ -34,7 +34,6 @@ namespace ManhPT.EF_Core_Assignment_1.Repository
                                                    Department = emp.Department,
                                                    ProjectEmployees = emp.ProjectEmployees,
                                                }).ToListAsync();
-
             return employeesWithProjects;
         }
         public async Task<IEnumerable<Employee>> GetFilterEmployeesAsync()

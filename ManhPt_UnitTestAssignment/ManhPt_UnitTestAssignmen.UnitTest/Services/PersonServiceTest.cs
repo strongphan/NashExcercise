@@ -12,17 +12,18 @@ namespace ManhPt_UnitTestAssignmen.UnitTest.Services
     {
         private PersonService _personService;
 
-        private readonly Mock<IPersonRepository> _personRepository = new();
+        private Mock<IPersonRepository> _personRepository;
 
         private IMapper _mapper;
 
 
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
             var profile = new PersonMap();
             var mapperConfig = new MapperConfiguration(c => c.AddProfile(profile));
             _mapper = mapperConfig.CreateMapper();
+            _personRepository = new();
             _personService = new PersonService(_personRepository.Object, _mapper);
 
         }
